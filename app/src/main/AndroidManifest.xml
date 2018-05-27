@@ -12,15 +12,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".SplashActivity" />
-        <activity
-            android:name=".LoginActivity">
+        <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".HomeActivity" />
 
         <service
             android:name=".Services.AuthenticationService"
@@ -28,10 +26,9 @@
             android:exported="false" />
 
         <activity
-            android:name=".Drawer"
-            android:label="@string/title_activity_drawer">
-
-        </activity>
+            android:name=".DrawerActivity"
+            android:label="@string/title_activity_drawer"></activity>
+        <activity android:name=".AnalyticsActivity"></activity>
     </application>
 
 </manifest>

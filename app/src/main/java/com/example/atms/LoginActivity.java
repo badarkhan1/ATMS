@@ -23,7 +23,6 @@ import com.example.atms.Services.AuthenticationService;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-import org.w3c.dom.Text;
 
 public class LoginActivity extends AppCompatActivity implements TextWatcher{
 
@@ -73,7 +72,7 @@ public class LoginActivity extends AppCompatActivity implements TextWatcher{
     }
 
     private void redirectToHomeActivity() {
-        startActivity(new Intent(this,Drawer.class));
+        startActivity(new Intent(this,DrawerActivity.class));
         finish();
     }
 

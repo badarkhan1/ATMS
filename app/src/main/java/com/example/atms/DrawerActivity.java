@@ -5,6 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
@@ -24,16 +27,33 @@ import com.example.atms.Services.AuthenticationService;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
-public class Drawer extends AppCompatActivity
+public class DrawerActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private static final String TAG = "MTAG";
     private com.example.atms.Models.DeserializedModels.Data Data;
+    protected DrawerLayout drawer;
+    protected NavigationView navigationView;
+    protected FragmentManager fm;
+    protected FragmentTransaction fragmentTransaction;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drawer);
+
+        setDrawer();
+
+        EventBus.getDefault().register(this);
+        setUserCredentials(navigationView.inflateHeaderView(R.layout.nav_header_drawer));
+        navigationView.getMenu().getItem(0).setChecked(true);
+
+        // add the statistics fragment
+        fm = getSupportFragmentManager();
+        changeFragment(new StatisticsFragment(),true,false);
+    }
+
+    private void setDrawer() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -46,16 +66,14 @@ public class Drawer extends AppCompatActivity
             }
         });
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        EventBus.getDefault().register(this);
-        setUserCredentials(navigationView.inflateHeaderView(R.layout.nav_header_drawer));
     }
 
     private void setUserCredentials(View headerView) {
@@ -69,9 +87,15 @@ public class Drawer extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
         }
+
+        int fragments= getSupportFragmentManager().getBackStackEntryCount();
+        if(fragments == 1){
+            finish();
+            return;
+        }
+
+        super.onBackPressed();
     }
 
     @Override
@@ -96,20 +120,32 @@ public class Drawer extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
+    public void setNavigationItemChecked(int id){
+        Menu menu = navigationView.getMenu();
+        MenuItem item = menu.getItem(id);
+        item.setChecked(true);
+    }
+
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+        navigationView.setCheckedItem(id);
 
-        if (id == R.id.statistics) {
-            // Handle the camera action
-        } else if (id == R.id.analytics) {
+        if(item.getItemId() == R.id.logout){
+            attemptLogout();
+        }else {
+            Fragment fragment = null;
+            if (id == R.id.statistics) {
+                fragment = new StatisticsFragment();
+            } else if (id == R.id.analytics) {
+                fragment = new AnalyticsFragment();
+            } else if (id == R.id.devices) {
+                fragment = new DeviceFragment();
+            }
 
-        } else if (id == R.id.devices) {
-
-        } else if (id == R.id.logout) {
-
+            changeFragment(fragment,true,false);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -123,7 +159,7 @@ public class Drawer extends AppCompatActivity
         super.onPause();
     }
 
-    public void attemptLogout(View view){
+    public void attemptLogout(){
 //        getApplicationContext().getSharedPreferences("login",MODE_PRIVATE).edit().clear().apply();
         Intent intent = new Intent(this,AuthenticationService.class);
         intent.setAction("com.example.atms.ACTION_LOGOUT");
@@ -144,7 +180,7 @@ public class Drawer extends AppCompatActivity
     }
 
     private void showFailedLogoutResponse() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(Drawer.this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(DrawerActivity.this);
         builder.setTitle("Something went wrong!").setMessage("There seems to be an issue.");
         builder.setPositiveButton("Try again", new DialogInterface.OnClickListener() {
             @Override
@@ -167,5 +203,39 @@ public class Drawer extends AppCompatActivity
 //        Log.d(TAG, "getUser: " + getApplicationContext().getSharedPreferences("login",MODE_PRIVATE).getString("name",""));
 //        Log.d(TAG, "getUser: " + getApplicationContext().getSharedPreferences("login",MODE_PRIVATE).getString("email",""));
         return user;
+    }
+
+    private void changeFragment(Fragment frag, boolean saveInBackstack, boolean animate) {
+        String backStateName = ((Object) frag).getClass().getName();
+
+        try {
+            FragmentManager manager = getSupportFragmentManager();
+            boolean fragmentPopped = manager.popBackStackImmediate(backStateName, 0);
+
+            if (!fragmentPopped && manager.findFragmentByTag(backStateName) == null) {
+                //fragment not in back stack, create it.
+                FragmentTransaction transaction = manager.beginTransaction();
+
+//                if (animate) {
+//                    Log.d(TAG, "Change Fragment: animate");
+//                    transaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left, R.anim.slide_in_left, R.anim.slide_out_right);
+//                }
+
+                transaction.replace(R.id.container, frag, backStateName);
+
+                if (saveInBackstack) {
+                    Log.d(TAG, "Change Fragment: addToBackTack " + backStateName);
+                    transaction.addToBackStack(backStateName);
+                } else {
+                    Log.d(TAG, "Change Fragment: NO addToBackTack");
+                }
+
+                transaction.commit();
+            } else {
+                // custom effect if fragment is already instanciated
+            }
+        } catch (IllegalStateException exception) {
+            Log.w(TAG, "Unable to commit fragment, could be activity as been killed in background. " + exception.toString());
+        }
     }
 }
