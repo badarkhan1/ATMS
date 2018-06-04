@@ -3,6 +3,7 @@
     package="com.example.atms">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -12,12 +13,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".SplashActivity" />
-        <activity android:name=".LoginActivity">
+        <activity
+            android:name=".LoginActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
 
         <service
@@ -27,8 +32,21 @@
 
         <activity
             android:name=".DrawerActivity"
-            android:label="@string/title_activity_drawer"></activity>
-        <activity android:name=".AnalyticsActivity"></activity>
+            android:label="@string/title_activity_drawer"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ProfileActivity"
+            android:label="Account"
+            android:theme="@style/ProfileAppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".DrawerActivity"/>
+        </activity>
+        <activity android:name=".ProfilePicActivity" android:theme="@style/AppTheme.NoActionBar" android:label="Profile photo">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ProfileActivity"/>
+        </activity>
     </application>
 
 </manifest>

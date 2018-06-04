@@ -13,5 +13,5 @@
     <!--My colors-->
     <color name="colorProgress">#00cc33</color>
     <color name="halfWhite">#dbefe1</color>
-
+    <color name="pressed">#e6e6e6</color>
 </resources>

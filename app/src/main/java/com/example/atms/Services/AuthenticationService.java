@@ -4,6 +4,7 @@ import android.app.Service;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.IBinder;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.example.atms.Authorization.Token;
@@ -59,7 +60,7 @@ public class AuthenticationService extends Service {
         Call<User> call = atmsClient.login(new Login(email,password));
         call.enqueue(new Callback<User>() {
             @Override
-            public void onResponse(Call<User> call, Response<User> response) {
+            public void onResponse(Call<User> call, @Nullable Response<User> response) {
                 if(response.isSuccessful()){
                     Log.d(TAG, "onResponse: Response Successfull");
                     saveUserDataInSharedPreferences(response.body().getData());
@@ -107,10 +108,13 @@ public class AuthenticationService extends Service {
 
     private void saveUserDataInSharedPreferences(Data data) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt("user_id",data.getId());
         editor.putString("token",data.getApiToken());
         editor.putString("name",data.getName());
         editor.putString("email",data.getEmail());
         editor.putString("image",data.getImage());
+        editor.putString("contact",data.getContact());
+        editor.putString("address",data.getAddress());
         editor.apply();
     }
 

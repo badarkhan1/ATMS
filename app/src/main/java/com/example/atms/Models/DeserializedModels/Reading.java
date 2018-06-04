@@ -3,7 +3,7 @@ package com.example.atms.Models.DeserializedModels;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-class Reading {
+public class Reading {
 
     @SerializedName("id")
     @Expose

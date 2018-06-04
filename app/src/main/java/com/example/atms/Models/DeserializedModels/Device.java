@@ -36,6 +36,18 @@ public class Device {
     @SerializedName("mode")
     @Expose
     private Integer mode;
+    @SerializedName("readings_count")
+    @Expose
+    private Integer readingsCount;
+
+    public Integer getReadingsCount() {
+        return readingsCount;
+    }
+
+    public void setReadingsCount(Integer readingsCount) {
+        this.readingsCount = readingsCount;
+    }
+
     @SerializedName("readings")
     @Expose
     private List<Reading> readings = null;

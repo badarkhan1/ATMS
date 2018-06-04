@@ -8,14 +8,33 @@
     <string name="email">email</string>
     <string name="home">Home</string>
     <string name="logout">Logout</string>
-    <string name="title_activity_drawer">Drawer</string>
-
+    <string name="title_activity_drawer">Statistics</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-
     <string name="action_settings">Settings</string>
     <string name="ignore">ignore</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="lastseen">2 Hours Ago</string>
+    <string name="degree"> C</string>
+    <string name="percentage"> %</string>
+    <string name="devices_owned">Devices Owned</string>
+    <string name="total_readings">Total Readings</string>
+    <string name="readings_emitted_today">Readings Today</string>
+    <string name="max_temp_today">Max. Temp. Today</string>
+    <string name="max_hum_today">Max. Hum. Today</string>
+    <string name="sensor_devices">Sensor Devices</string>
+    <string name="active_devices">Active Devices</string>
+    <string name="actuator_devices">Actuator Devices</string>
+    <string name="profile">profile</string>
+    <string name="chip" />
+    <string name="change_image">change image</string>
+    <string name="name">name</string>
+    <string name="designation">email</string>
+    <string name="expertiese">contact</string>
+    <string name="private_information">Personal Information</string>
+    <string name="room_no">address</string>
+    <string name="save">Save</string>
+    <string name="account_information">Account Information</string>
+    <string name="info">info</string>
+    <string name="profile_photo">Profile photo</string>
 </resources>

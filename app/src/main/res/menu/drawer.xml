@@ -1,9 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/info"
+        android:orderInCategory="0"
+        android:title="@string/info"
+        android:icon="@drawable/info3"
+        app:showAsAction="always"
+        android:visible="false"/>
+
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/profile_menu_icon"
         android:orderInCategory="100"
+        android:icon="@drawable/account_menu_icon"
+        android:title="@string/profile"
+        app:showAsAction="ifRoom"/>
+
+
+    <item
+        android:id="@+id/dots"
+        android:orderInCategory="200"
         android:title="@string/action_settings"
-        app:showAsAction="never" />
+        app:showAsAction="always"
+        android:icon="@drawable/dots_vertical"/>
+
+
+
 </menu>

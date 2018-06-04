@@ -16,13 +16,15 @@ public class Remote {
 
     private static final String BASE_URL;
     private static Retrofit retrofit;
-    private static final String IP = "http://192.168.10.8:8080/atms/";
+    public static final String IP = "http://192.168.10.10:8080/atms/";
     private static final String STORAGE_URL;
+    public static final String USER_IMAGES_URL;
     private static final String TAG = "MTAG";
 
     static {
         BASE_URL = IP + "public/api/";
         STORAGE_URL = IP + "storage/app/";
+        USER_IMAGES_URL = "public/uploads/users/";
         retrofit = null;
     }
 
