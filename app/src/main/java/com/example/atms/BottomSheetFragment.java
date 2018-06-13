@@ -2,6 +2,7 @@ package com.example.atms;
 
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -45,6 +46,8 @@ public class BottomSheetFragment extends BottomSheetDialogFragment implements Vi
     }
 
     public void attemptLogout(){
+//        getActivity().getSharedPreferences("device",MODE_PRIVATE).edit().putString("device-mac","60:01:94:37:D1:34").apply();
+//        getActivity().getSharedPreferences("device",MODE_PRIVATE).edit().putString("device-id","1").apply();
 //        getActivity().getSharedPreferences("login",MODE_PRIVATE).edit().clear().apply();
         Intent intent = new Intent(getActivity(),AuthenticationService.class);
         intent.setAction("com.example.atms.ACTION_LOGOUT");

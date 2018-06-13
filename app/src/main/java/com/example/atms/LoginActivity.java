@@ -28,7 +28,6 @@ public class LoginActivity extends AppCompatActivity implements TextWatcher{
 
     Button btn_signin;
     ProgressBar progressBar;
-    TextView tv_fp;
     Handler handler;
     EditText et_email, et_password;
     TransitionDrawable transition;
@@ -59,7 +58,6 @@ public class LoginActivity extends AppCompatActivity implements TextWatcher{
         et_password = (EditText) findViewById(R.id.et_password);
         btn_signin.setEnabled(false);
         btn_signin.setTextColor(ContextCompat.getColor(this,R.color.halfWhite));
-        tv_fp = (TextView) findViewById(R.id.tv_fp);
         handler = new Handler();
         transition = (TransitionDrawable) btn_signin.getBackground();
 //        downToUp = AnimationUtils.loadAnimation(this,R.anim.bottom_up);

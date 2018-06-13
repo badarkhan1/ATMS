@@ -16,10 +16,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.atms.Models.DeserializedModels.Device;
+import com.example.atms.Models.EventBusModels.DeviceResponse;
 import com.example.atms.NetworkClient.AtmsClient;
 import com.example.atms.NetworkRemoteSingleton.Remote;
 import com.example.atms.R;
 
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -55,7 +58,7 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.DeviceView
     class DeviceViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         int device_id;
-        TextView deviceName, temp, hum, oxy, lastSeen,device_mac,total_readings;
+        TextView deviceName, temp, hum, oxy, lastSeen,device_mac,total_readings,live;
         Switch aSwitch;
         ImageView device_menu;
 
@@ -69,15 +72,17 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.DeviceView
             oxy = view.findViewById(R.id.oxy);
             aSwitch = view.findViewById(R.id.device_switch);
             lastSeen = view.findViewById(R.id.last_seen);
+            live = view.findViewById(R.id.live);
             device_menu = view.findViewById(R.id.card_menu);
             aSwitch.setOnClickListener(this);
             device_menu.setOnClickListener(this);
+            live.setOnClickListener(this);
         }
 
         @Override
         public void onClick(final View view) {
             if(view.getId() == R.id.card_menu){
-                Toast.makeText(context, this.device_mac.getText().toString() + String.valueOf(this.device_id), Toast.LENGTH_SHORT).show();
+                EventBus.getDefault().post(new DeviceResponse(this.device_mac.getText().toString(),this.device_id,"device-options"));
             }else if (view.getId() == R.id.device_switch){
                 aSwitch.setEnabled(false);
                 Call<Void> call = atmsClient.setDeviceMode(device_id,!aSwitch.isChecked() ? 0 : 1);
@@ -90,9 +95,11 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.DeviceView
                             String actionPerformed;
                             if (!aSwitch.isChecked()){
                                 aSwitch.setChecked(false);
+                                live.setEnabled(false);
                                 actionPerformed = "Device has been turned off";
                             }else{
                                 aSwitch.setChecked(true);
+                                live.setEnabled(true);
                                 actionPerformed = "Device has been turned on";
                             }
                             aSwitch.setEnabled(true);
@@ -111,6 +118,10 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.DeviceView
                         Snackbar.make(view,"Oops! Looks like something went wrong",Snackbar.LENGTH_LONG).show();
                     }
                 });
+            }else if(view.getId() == R.id.live){
+                if(aSwitch.isChecked()){
+                    EventBus.getDefault().post(new DeviceResponse(device_mac.getText().toString(),device_id,"update-shared-preference"));
+                }
             }
         }
     }
@@ -132,6 +143,11 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.DeviceView
         holder.hum.setText(device.getReadings().size() != 0 ? String.valueOf(device.getReadings().get(0).getHum())    : "0.00");
         holder.oxy.setText(device.getReadings().size() != 0 ? String.valueOf(device.getReadings().get(0).getOxygen()) : "0.00");
         holder.aSwitch.setChecked(device.getMode() == 1);
+        if (holder.aSwitch.isChecked()){
+            holder.live.setEnabled(true);
+        }else{
+            holder.live.setEnabled(false);
+        }
         if(!device.getReadings().isEmpty()){
             try {
                 time = sdf.parse(device.getReadings().get(0).getCreatedAt()).getTime();

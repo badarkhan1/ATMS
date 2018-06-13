@@ -37,4 +37,45 @@
     <string name="account_information">Account Information</string>
     <string name="info">info</string>
     <string name="profile_photo">Profile photo</string>
+    <string name="live_data_stream">Live Data Stream</string>
+    <string name="no_device_selected">no device selected</string>
+    <string name="this_year">Yearly Average</string>
+    <string name="data_history">Data History</string>
+    <string name="constraints">Constraints</string>
+    <string name="yearly_data">Yearly Data</string>
+    <string name="no_data_to_display">No data to display</string>
+    <string name="temperature">Temperature</string>
+    <string name="Oxygen" >Oxygen</string>
+    <string name="humidity">Humidity</string>
+    <string name="loading">Please wait…</string>
+    <string name="cancel">Cancel</string>
+    <string name="apply">Apply</string>
+
+
+    <string-array name="data_attributes">
+        <item>Temperature</item>
+        <item>Humidity</item>
+        <item>Oxygen</item>
+    </string-array>
+
 </resources>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

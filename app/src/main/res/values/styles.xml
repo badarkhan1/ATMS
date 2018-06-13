@@ -12,6 +12,8 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:windowFullscreen">true</item>
+        <!--<item name="windowActionBarOverlay">true</item>-->
+        <!--<item name="windowActionModeOverlay">true</item>-->
     </style>
 
     <style name="ProfileAppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -26,9 +28,12 @@
     <style name="ProfileAppTheme.NoBack">
         <item name="android:padding">0dp</item>
     </style>
-
+    <style name="SpinnerTextColor"><item name="android:textColor">#fff</item></style>
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+
+    <style name="DialogueTheme" parent="@android:style/Theme.Holo.Dialog.NoActionBar"/>
 
 </resources>

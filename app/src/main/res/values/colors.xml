@@ -14,4 +14,9 @@
     <color name="colorProgress">#00cc33</color>
     <color name="halfWhite">#dbefe1</color>
     <color name="pressed">#e6e6e6</color>
+
+    <color name="temp_color">#ca4242</color>
+    <color name="hum_color">#5a98bc</color>
+    <color name="oxy_color">#54cf6d</color>
+
 </resources>
