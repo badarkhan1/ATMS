@@ -1,0 +1,59 @@
+{
+  "project_info": {
+    "project_number": "1028622830461",
+    "firebase_url": "https://atms-bfc0d.firebaseio.com",
+    "project_id": "atms-bfc0d",
+    "storage_bucket": "atms-bfc0d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1028622830461:android:524a1339e69e58d9",
+        "android_client_info": {
+          "package_name": "com.example.atms"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1028622830461-f6geb2dv1l27lko7usdbb6mv63gbvre9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.atms",
+            "certificate_hash": "5351cc3f5003ea6c6ada99c519616f248240c361"
+          }
+        },
+        {
+          "client_id": "1028622830461-le1l4qlhnj6fhn61f627leprhij21qre.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "1028622830461-le1l4qlhnj6fhn61f627leprhij21qre.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD4lSX1GbbZIPa1vb5yUaER25RloinJsH8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1028622830461-le1l4qlhnj6fhn61f627leprhij21qre.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
