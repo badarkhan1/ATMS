@@ -16,7 +16,7 @@ public class Remote {
 
     private static final String BASE_URL;
     private static Retrofit retrofit;
-    public static final String IP = "http://192.168.10.9:8080/atms/";
+    public static final String IP = "http://192.168.10.7:8080/atms/";
     private static final String STORAGE_URL;
     public static final String USER_IMAGES_URL;
     private static final String TAG = "MTAG";

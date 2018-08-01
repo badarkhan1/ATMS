@@ -239,7 +239,7 @@ public class DrawerActivity extends AppCompatActivity
 
     private void initiateRealTimeStream() {
 
-        Channel channel = pusher.subscribe(sharedPreferences.getString("device-id",""));
+        Channel channel = pusher.subscribe(String.valueOf(sharedPreferences.getString("device-id","")));
 
         channel.bind("ReadingEvent", new SubscriptionEventListener() {
             @Override
